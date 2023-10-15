@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Check if the user provided a commit message and branch name
+if [ -z "$1" ] || [ -z "$2" ]; then
+  echo "Please provide a commit message and a branch name."
+  exit 1
+fi
+
+branch=$2
+
+# Add all changes and commit
+git add .
+git commit -m "$1"
+
+# Push to the specified branch
+git push origin "$branch"
+
+# Print a message indicating success
+echo "Changes committed and pushed to $branch successfully."
