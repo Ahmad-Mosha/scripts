@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+  echo "Please provide a repository name."
+  exit 1
+fi
+
+repo_name=$1
+
+github_username="Ahmad-Mosha"
+github_token="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"
+
+curl -X DELETE \
+     -H "Authorization: token $github_token" \
+     -H "Accept: application/vnd.github.v3+json" \
+     "https://api.github.com/repos/$github_username/$repo_name"
+
+
+
+rm -rf "$repo_name"
+
+echo "Deleted GitHub repository: $repo_name"

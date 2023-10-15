@@ -1,0 +1,31 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+  echo "Please provide a repository name."
+  exit 1
+fi
+
+repo_name=$1
+
+github_username="Ahmad-Mosha"
+github_token="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"
+
+curl -X POST \
+     -H "Authorization: token $github_token" \
+     -H "Accept: application/vnd.github.v3+json" \
+     -d '{"name":"'"$repo_name"'", "private": false}' \
+     "https://api.github.com/user/repos"
+
+echo "Created GitHub repository: $repo_name"
+
+git clone "git@github.com:$github_username/$repo_name.git"
+cd "$repo_name"
+
+echo "# $repo_name" >> README.md
+
+git add README.md
+git commit -m "Added README file"
+
+git push --set-upstream origin main
+
+echo "Cloned, added README, and pushed to GitHub repository: $repo_name"
